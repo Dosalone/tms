@@ -1,4 +1,4 @@
-package ru.dosalone.tms.config;
+package ru.dosalone.tms.server.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.dosalone.tms.service.JwtService;
-import ru.dosalone.tms.service.UserService;
+import ru.dosalone.tms.server.service.JwtService;
+import ru.dosalone.tms.testapp.service.UserService;
 import java.io.IOException;
 
 @Component
@@ -34,15 +34,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
 
         // Получаем токен из заголовка
-        var authHeader = request.getHeader(HEADER_NAME);
+        String authHeader = request.getHeader(HEADER_NAME);
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, BEARER_PREFIX)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         // Обрезаем префикс и получаем имя пользователя из токена
-        var jwt = authHeader.substring(BEARER_PREFIX.length());
-        var username = jwtService.extractUserName(jwt);
+        String jwt = authHeader.substring(BEARER_PREFIX.length());
+        String username = jwtService.extractUserName(jwt);
 
         if (StringUtils.isNotEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService

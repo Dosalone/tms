@@ -1,4 +1,4 @@
-package ru.dosalone.tms.config;
+package ru.dosalone.tms.server.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import ru.dosalone.tms.service.UserService;
+import ru.dosalone.tms.testapp.service.UserService;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 // Своего рода отключение CORS (разрешение запросов со всех доменов)
                 .cors(cors -> cors.configurationSource(request -> {
-                    var corsConfiguration = new CorsConfiguration();
+                    CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.setAllowedOriginPatterns(List.of("*"));
                     corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     corsConfiguration.setAllowedHeaders(List.of("*"));

@@ -1,4 +1,4 @@
-package ru.dosalone.tms.DTO;
+package ru.dosalone.tms.server.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package ru.dosalone.tms.service;
+package ru.dosalone.tms.server.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -8,7 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import ru.dosalone.tms.entity.UserEntity;
+import ru.dosalone.tms.testapp.entity.UserEntity;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -112,8 +112,8 @@ public class JwtService {
      * @return данные
      */
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(getSigningKey()).parseClaimsJws(token)
-                //.build().parseClaimsJws(token)
+        return Jwts.parser().setSigningKey(getSigningKey())
+                .parseClaimsJws(token)
                 .getBody();
     }
 
