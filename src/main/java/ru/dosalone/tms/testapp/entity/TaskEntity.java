@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
-
-import java.util.List;
+import ru.dosalone.tms.testapp.enums.Priority;
+import ru.dosalone.tms.testapp.enums.Status;
 
 @Entity
 @Data
@@ -41,5 +40,4 @@ public class TaskEntity {
     @ManyToOne
     @JoinColumn(name = "assignee")
     private UserEntity assignee;
-
 }

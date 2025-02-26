@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.dosalone.tms.testapp.entity.AuthorizationUserEntity;
 import ru.dosalone.tms.testapp.entity.UserEntity;
 import ru.dosalone.tms.testapp.repository.UserRepository;
 
@@ -18,8 +19,19 @@ public class UserService {
      *
      * @return пользователь
      */
-    public UserEntity getByUsername(String username) {
+    public AuthorizationUserEntity getByUsername(String username) {
         return repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+
+    }
+
+    /**
+     * Получение пользователя по Id
+     *
+     * @return пользователь
+     */
+    public UserEntity getByUserId(Long id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
 
     }
@@ -40,9 +52,9 @@ public class UserService {
      *
      * @return текущий пользователь
      */
-    public UserEntity getCurrentUser() {
+    public AuthorizationUserEntity getCurrentUser() {
         // Получение имени пользователя из контекста Spring Security
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
 

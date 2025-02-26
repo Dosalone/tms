@@ -23,4 +23,8 @@ public class CommentEntity {
     @ManyToOne
     @JoinColumn(name = "task_id", nullable = false)
     private TaskEntity taskEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "author", nullable = false)
+    private UserEntity author;
 }
